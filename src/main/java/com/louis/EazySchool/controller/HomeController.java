@@ -2,11 +2,13 @@ package com.louis.EazySchool.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.ui.Model;
 
 @Controller
 public class HomeController {
-    @RequestMapping({"", "/", "/home"})
-    public String displayHomePage() {
+    @RequestMapping(value = {"", "/", "/home"})
+    public String displayHomePage(Model model) {
+        model.addAttribute("username", "John");
         return "home.html";
     }
 }
