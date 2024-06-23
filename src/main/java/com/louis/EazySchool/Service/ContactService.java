@@ -2,10 +2,12 @@ package com.louis.EazySchool.Service;
 
 import com.louis.EazySchool.controller.ContactController;
 import com.louis.EazySchool.model.Contact;
+import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.ModelAttribute;
 
 @Slf4j // generate a log object by using lombok
 @Service
