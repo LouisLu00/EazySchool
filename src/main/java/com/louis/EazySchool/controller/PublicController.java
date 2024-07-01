@@ -1,5 +1,6 @@
 package com.louis.EazySchool.controller;
 
+import com.louis.EazySchool.Service.PersonService;
 import com.louis.EazySchool.model.Person;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
@@ -16,8 +17,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 @RequestMapping(value = "public")
 public class PublicController {
-//    @Autowired
-//    PersonService personService;
+    @Autowired
+    PersonService personService;
 
     @RequestMapping(value = "/register", method = {RequestMethod.GET})
     public String displayRegisterPage(Model model) {
@@ -30,7 +31,11 @@ public class PublicController {
         if(errors.hasErrors()){
             return "register.html";
         }else{
-            return "redirect:/login?register=true";
+            boolean isSaved = personService.createNewPerson(person);
+            if(isSaved){
+                return "redirect:/login?register=true";
+            }
+            return "register.html";
         }
     }
 
