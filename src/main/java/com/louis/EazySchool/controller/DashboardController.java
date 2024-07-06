@@ -20,9 +20,9 @@ class DashboardController {
         Person person = personRepository.findByEmail(authentication.getName());
 
         // Store person information inside a http session
-        session.setAttribute("loggedInPerson", person);
         model.addAttribute("username", person.getName());
         model.addAttribute("roles", person.getRole().toString());
+        session.setAttribute("loggedInPerson", person);
         return "dashboard.html";
     }
 }

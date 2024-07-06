@@ -24,7 +24,7 @@ public class ProfileController {
 
     @RequestMapping("/displayProfile")
     public ModelAndView displayProfile(Model model, HttpSession session) {
-        Person person = (Person) session.getAttribute("person");
+        Person person = (Person) session.getAttribute("loggedInPerson");
         Profile profile = new Profile();
         profile.setName(person.getName());
         profile.setEmail(person.getEmail());
