@@ -22,6 +22,11 @@ class DashboardController {
         // Store person information inside a http session
         model.addAttribute("username", person.getName());
         model.addAttribute("roles", person.getRole().toString());
+
+        // get the class name for the person (for students)
+        if(null != person.getEazyClass() && null != person.getEazyClass().getName()){
+            model.addAttribute("enrolledClass", person.getEazyClass().getName());
+        }
         session.setAttribute("loggedInPerson", person);
         return "dashboard.html";
     }
