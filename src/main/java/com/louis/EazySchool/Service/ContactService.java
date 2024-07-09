@@ -1,6 +1,7 @@
 package com.louis.EazySchool.Service;
 
 import com.louis.EazySchool.Repository.ContactRepository;
+import com.louis.EazySchool.Repository.CourseRepository;
 import com.louis.EazySchool.constants.EazySchoolConstants;
 import com.louis.EazySchool.controller.ContactController;
 import com.louis.EazySchool.model.Contact;
@@ -9,6 +10,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Sort;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementSetter;
 import org.springframework.stereotype.Service;
@@ -27,6 +32,7 @@ public class ContactService {
     private ContactRepository contactRepository;
 
 
+
     public boolean saveMessageDetails(Contact contact) {
         boolean isSaved = false;
         // Save the data into the database table
@@ -38,9 +44,12 @@ public class ContactService {
         return isSaved;
     }
 
-    public List<Contact> findMsgsWithOpenStatus(){
-        List<Contact> contactMsgs = contactRepository.findByStatus(EazySchoolConstants.OPEN);
-        return contactMsgs;
+    public Page<Contact> findMsgsWithOpenStatus(int pageNum, String sortField, String sortDir){
+        int pageSize = 5;
+        Pageable pageable = PageRequest.of(pageNum-1, pageSize,
+                sortDir.equals("asc") ? Sort.by(sortField).ascending() : Sort.by(sortField).descending());
+        Page<Contact> msgPage = contactRepository.findByStatus(EazySchoolConstants.OPEN, pageable);
+        return msgPage;
     }
 
     public boolean updateMsg(int contactID) {

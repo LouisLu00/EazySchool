@@ -8,6 +8,5 @@ import java.util.List;
 
 @Repository
 public interface CourseRepository extends JpaRepository<Courses, Integer> {
-    List<Courses> findByOrderByNameDesc();
     List<Courses> findByOrderByName();
 }

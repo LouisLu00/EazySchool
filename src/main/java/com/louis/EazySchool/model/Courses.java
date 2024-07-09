@@ -17,7 +17,7 @@ public class Courses extends BaseEntity {
     @GenericGenerator(name = "native", strategy = "native")
     private int courseId;
 
-    private String Name;
+    private String name;
 
     private String fees;
 
