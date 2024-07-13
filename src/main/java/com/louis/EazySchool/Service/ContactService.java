@@ -52,14 +52,10 @@ public class ContactService {
         return msgPage;
     }
 
-    public boolean updateMsg(int contactID) {
+    public boolean updateMsg(int contactId) {
         boolean isUpdated = false;
-        Optional<Contact> contact = contactRepository.findById(contactID);
-        contact.ifPresent(contact1->{
-            contact1.setStatus(EazySchoolConstants.CLOSE);
-        });
-        Contact updatedContact = contactRepository.save(contact.get());
-        if (updatedContact != null && updatedContact.getUpdatedBy() != null) {
+        int rows = contactRepository.updateStatusById(EazySchoolConstants.CLOSE, contactId);
+        if(rows > 0){
             isUpdated = true;
         }
         return isUpdated;
