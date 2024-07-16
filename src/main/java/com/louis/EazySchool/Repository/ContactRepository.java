@@ -20,13 +20,13 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Repository
-public interface ContactRepository extends CrudRepository<Contact, Integer> {
+public interface ContactRepository extends JpaRepository<Contact, Integer> {
     List<Contact> findByStatus(String status);
 
 //    Page<Contact> findByStatus(String status, Pageable pageable);
 
     @Query("SELECT c From Contact c WHERE c.status = :status")
-    Page<Contact> findByStatus(String status, Pageable pageable);
+    Page<Contact> findByStatusQuery(String status, Pageable pageable);
 
     @Transactional
     @Modifying

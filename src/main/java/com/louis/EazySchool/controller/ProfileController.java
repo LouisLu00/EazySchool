@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import com.eazybytes.eazyschool.model.Profile;
 
-@Controller
+@Controller("profileControllerBean")
 @Slf4j
 public class ProfileController {
     @Autowired
