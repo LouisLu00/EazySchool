@@ -2,6 +2,7 @@ package com.louis.EazySchool.Service;
 
 import com.louis.EazySchool.Repository.ContactRepository;
 import com.louis.EazySchool.Repository.CourseRepository;
+import com.louis.EazySchool.config.EazySchoolProps;
 import com.louis.EazySchool.constants.EazySchoolConstants;
 import com.louis.EazySchool.controller.ContactController;
 import com.louis.EazySchool.model.Contact;
@@ -30,7 +31,8 @@ import java.util.Optional;
 public class ContactService {
     @Autowired
     private ContactRepository contactRepository;
-
+    @Autowired
+    private EazySchoolProps eazySchoolProps;
 
 
     public boolean saveMessageDetails(Contact contact) {
@@ -45,7 +47,10 @@ public class ContactService {
     }
 
     public Page<Contact> findMsgsWithOpenStatus(int pageNum, String sortField, String sortDir){
-        int pageSize = 5;
+        int pageSize = eazySchoolProps.getPageSize();
+        if(null!=eazySchoolProps.getContact() && null!=eazySchoolProps.getContact().get("pageSize")){
+            pageSize = Integer.parseInt(eazySchoolProps.getContact().get("pageSize").trim());
+        }
         Pageable pageable = PageRequest.of(pageNum-1, pageSize,
                 sortDir.equals("asc") ? Sort.by(sortField).ascending() : Sort.by(sortField).descending());
         Page<Contact> msgPage = contactRepository.findByStatusQuery(EazySchoolConstants.OPEN, pageable);

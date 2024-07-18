@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 class DashboardController {
+
     @Autowired
     PersonRepository personRepository;
 
